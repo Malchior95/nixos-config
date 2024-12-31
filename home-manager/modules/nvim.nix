@@ -32,4 +32,8 @@
     recursive = true;
     source = ./nvim.nix.d;
   };
+
+  home.packages = with pkgs; [
+    rustc cargo rust-analyzer lldb
+  ];
 }

@@ -7,13 +7,13 @@
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
 
-    packages = with pkgs; [ rustc cargo rust-analyzer lldb ];
+    packages = with pkgs; [  ];
   };
 
   programs.bash = {
     enable = true;
     shellAliases = {
-      cat = "bat --paging=never";
+      cat = "bat --paging=never --plain";
       ls = "eza";
     };
     initExtra = ''
@@ -37,7 +37,7 @@
     languages.language = [{
       name = "nix";
       auto-format = true;
-      formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+      formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
     }];
   };
 
