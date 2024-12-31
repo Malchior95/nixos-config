@@ -40,11 +40,14 @@
   };
 
   # DO NOT SETUP GIT, OR GH WILL NOT BE ABLE TO LOGIN TO GITHUB
-  # programs.git = {
-  #   enable = true;
-  #   extraConfig = {
-  #     user.name = "Malchior95";
-  #     user.email = "malchior95@gmail.com";
-  #   };
-  # };
+  programs.git = {
+    enable = true;
+    extraConfig = {
+      user.name = "Malchior95";
+      user.email = "malchior95@gmail.com";
+    };
+  };
+
+  home.file.".config/nvim".source = ./dotfiles/nvim;
+  home.file.".config/tmux".source = ./dotfiles/tmux;
 }
