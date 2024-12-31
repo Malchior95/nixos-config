@@ -1,15 +1,13 @@
 { pkgs, config, user, homeStateVersion, ... }: {
 
-  imports [
-    ./modules
-  ];
-  
+  imports = [ ./modules ];
+
   home = {
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
 
-    packages = with pkgs; [  ];
+    packages = with pkgs; [ rustc cargo rust-analyzer lldb ];
   };
 
   programs.bash = {
@@ -43,5 +41,4 @@
     }];
   };
 
-  
 }
