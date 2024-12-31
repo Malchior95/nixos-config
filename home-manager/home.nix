@@ -47,7 +47,4 @@
       user.email = "malchior95@gmail.com";
     };
   };
-
-  home.file.".config/nvim".source = ./dotfiles/nvim;
-  home.file.".config/tmux".source = ./dotfiles/tmux;
 }
