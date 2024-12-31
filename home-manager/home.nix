@@ -5,15 +5,21 @@
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
 
-    packages = with pkgs; [ neovim helix tmux bat eza nixfmt ];
+    packages = with pkgs; [ neovim helix tmux bat eza nixfmt git gh ];
   };
 
   programs.bash = {
     enable = true;
     shellAliases = {
-      cat = "bat";
+      cat = "bat --paging=never";
       ls = "eza";
     };
+    initExtra = ''
+      if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+        exec tmux
+      fi
+
+    '';
   };
 
   programs.helix = {
@@ -33,12 +39,12 @@
     }];
   };
 
-  programs.git = {
-    extraConfig = {
-      user.name = "Malchior95";
-      user.email = "malchior95@gmail.com";
-    };
-  };
-
-  # file.".bashrc".source = "./dotfiles/.bashrc";  
+  # DO NOT SETUP GIT, OR GH WILL NOT BE ABLE TO LOGIN TO GITHUB
+  # programs.git = {
+  #   enable = true;
+  #   extraConfig = {
+  #     user.name = "Malchior95";
+  #     user.email = "malchior95@gmail.com";
+  #   };
+  # };
 }

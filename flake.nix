@@ -9,24 +9,26 @@
     };
   };
 
-  outputs = {nixpkgs, home-manager, ...} : 
-  let
-    homeStateVersion = "24.11";
-    system = "x86_64-linux";
-    host = "iron-dell";
-    user = "ironche";
-  in {
-    nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [ ./configuration.nix ];
-    };
-
-    homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      modules = [./home.nix];
-      extraSpecialArgs = {
-        inherit homeStateVersion; inherit user; inherit system;
+  outputs = { nixpkgs, home-manager, ... }:
+    let
+      homeStateVersion = "24.11";
+      system = "x86_64-linux";
+      host = "iron-dell";
+      user = "ironche";
+    in {
+      nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./configuration.nix ];
       };
-     };
-  };
+
+      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./home-manager/home.nix ];
+        extraSpecialArgs = {
+          inherit homeStateVersion;
+          inherit user;
+          inherit system;
+        };
+      };
+    };
 }
